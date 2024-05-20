@@ -40,16 +40,14 @@ const playerTwoTurn = () => {
 };
     // Get Winner Function
     const getWinner = () => {
-      // Convert playerTwo to lowercase for comparison
-      const playerTwoLower = playerTwo;
     
-      if (playerOne === playerTwoLower) {
+      if (playerOne === playerTwo) {
         return 'Draw !';
-      } else if (playerTwoLower === 'Rock') {
+      } else if (playerTwo === 'Rock') {
         return (playerOne === 'Paper') ? 'Player One Won !' : 'Player Two Won !';
-      } else if (playerTwoLower === 'Paper') {
+      } else if (playerTwo === 'Paper') {
         return (playerOne === 'Scissors') ? 'Player One Won !' : 'Player Two Won !';
-      } else if (playerTwoLower === 'Scissors') {
+      } else if (playerTwo === 'Scissors') {
         return (playerOne === 'Rock') ? 'Player One Won !' : 'Player Two Won !';
       }
     }
