@@ -4,16 +4,17 @@ import './App.css'
 const App =() => {
   // Use State
   const [history, setHistory] = useState([]);
- // Declare Variables
- let playerOne, playerTwo, result;
+
  // Handle Submit Function with history tracker
 const handleSubmit = (event) => {
   event.preventDefault();
 
-  playerOne = document.getElementById('operator').value;
-  playerTwoTurn();
-  result = getWinner();
-  document.getElementById('result').innerHTML = result;
+  const formData = new FormData(event.target);
+
+  const playerOne = formData.get('player-one-choose')
+  const playerTwo = playerTwoTurn();
+
+  const  result = getWinner( playerOne, playerTwo);
 
   setHistory(history.concat({
     playerOne: playerOne.charAt(0) + playerOne.slice(1),
@@ -25,21 +26,23 @@ const handleSubmit = (event) => {
 // Player Two's Turn Function
 const playerTwoTurn = () => {
   const randomNumber = Math.floor(Math.random() * 3) + 1;
+  let result;
   
   switch(randomNumber) {
     case 1:
-        playerTwo = 'Paper';
+        result = 'Paper';
         break;
     case 2:
-        playerTwo = 'Scissors';
+        result = 'Scissors';
         break;
     case 3:
-        playerTwo = 'Rock';
+        result = 'Rock';
         break;
     }
+    return result
 };
     // Get Winner Function
-    const getWinner = () => {
+    const getWinner = ( playerOne, playerTwo) => {
     
       if (playerOne === playerTwo) {
         return 'Draw !';
@@ -59,15 +62,15 @@ const playerTwoTurn = () => {
        {/* --- App-Container --- */}
          <form className='form-container' onSubmit={handleSubmit}>
            <h1>Rock-Paper-Scissors</h1>
-           <div className='player-text-input' id='player-one'> Player One: </div>
-           <select name="operator" id="operator" className='game-operator'>
+           <div className='player-text-input'> Player One: </div>
+           <select name="player-one-choose" className='game-operator'>
              <option value="Rock">Rock</option>
              <option value="Paper">Paper</option>
              <option value="Scissors">Scissors</option>
            </select>
-           <div className='player-text-input' id='player-two'> Player Two: </div>
+           <div className='player-text-input'> Player Two: </div>
            <button type='submit' className='submit-button'> Submit </button>
-           <div className='player-score' id='result'> Result: </div>
+           <div className='player-score'> Result: </div>
          </form>
          {/* History Container */}
          <div className='history-container'>
